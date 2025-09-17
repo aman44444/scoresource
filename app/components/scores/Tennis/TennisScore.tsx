@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ScoreSkeleton from '../../common/ScoreSkeleton'
+import Accordion from "../../common/Accordion";
 
 interface Player {
   name: string;
@@ -19,6 +21,8 @@ interface Match {
   status?: { description?: string };
 }
 
+
+
 const TennisScoreCard: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(false);
@@ -36,30 +40,31 @@ const TennisScoreCard: React.FC = () => {
 
     setLoading(true);
     setError(null);
-
-    try {
+   
+     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      setMatches(result.events || []);
+
+      if (result.status) {
+        setMatches(result.data);
+      } else {
+        setError("No matches available");
+      }
     } catch (err) {
-      setError("Failed to fetch tennis matches.");
+      setError("Error fetching tennis matches");
     } finally {
       setLoading(false);
     }
+
   };
 
   return (
-    <div className="w-5/6">
-      <button
-        onClick={fetchLiveTennisMatches}
-        className="text-sm sm:text-md  mb-4 w-full text-gray-500 border-b p-4 border-gray-500 sticky bg-black top-0 "
-        disabled={loading}
-      >
-        {loading ? "Fetching..." : "Tennis Score"}
-      </button>
+   <Accordion title='Tennis Score' onFetch={fetchLiveTennisMatches}>
 
-      {error && <p className="text-gray-500">{error}</p>}
-    <div className="flex flex-col justify-center items-center">
+      {error && <p className='text-xs text-gray-300'>{error}</p>}
+
+           {loading &&
+          Array.from({ length: 4 }).map((_, i) => <ScoreSkeleton key={i} />)}
       {matches.length > 0 &&
         matches.map((match, index) => {
           const homeScoreDisplay = match.homeScore?.display || "0";
@@ -81,7 +86,7 @@ const TennisScoreCard: React.FC = () => {
               className=" w-full border p-2 mb-4 rounded-xl border-gray-500"
               
             >
-              {/* style={{ width: "250px", padding: "10px" }} */}
+              
               <h2 className="text-sm lg:text-xl font-bold">
                 {match.tournament?.name || "Unknown Tournament"}
               </h2>
@@ -139,8 +144,9 @@ const TennisScoreCard: React.FC = () => {
             </div>
           );
         })}
-      </div> 
-    </div>
+      
+    </Accordion>
+      
   );
 };
 
