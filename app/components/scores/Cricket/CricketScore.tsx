@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import ScoreSkeleton from '../../common/ScoreSkeleton';
+import Accordion from '../../common/Accordion';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Team {
@@ -12,6 +14,7 @@ interface MatchData {
   match_status: string;
   series: string;
   toss: string;
+  match_id :string;
   match_time: string;
   match_type: string;
   team_a: string; 
@@ -25,6 +28,7 @@ interface MatchData {
   team_a_scores_over?: { over: string; score: string }[]; // Team A innings details
   team_b_scores_over?: { over: string; score: string }[]; // Team B innings details
 }
+
 
 const CricketScore: React.FC = () => {
   const [matches, setMatches] = useState<MatchData[]>([]);
@@ -43,39 +47,40 @@ const CricketScore: React.FC = () => {
 
     setLoading(true);
     setError(null);
-
+     
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      
+
       if (result.status) {
         setMatches(result.data);
-        console.log(result.data); 
       } else {
         setError('No matches available');
       }
     } catch (err) {
-      setError('Error fetching matches: ' + (err as Error).message);
+      setError('Error fetching matches');
     } finally {
       setLoading(false);
     }
+
   };
 
+  
   return (
-    <div className='w-5/6'>
-      <button onClick={fetchLiveMatches} className="text-sm sm:text-md p-4 mb-4 w-full text-gray-500 border-b  border-gray-500 sticky bg-black top-0 ">
-        Cricket Score
-      </button>
-      {loading && <p className='text-sm '>Loading...</p>}
-      {error && <p>{error}</p>}
+  
+      <Accordion title='Cricket Score' onFetch={fetchLiveMatches}>
+      {error && <p className='text-xs text-gray-300'>{error}</p>}
+   
       
-      <div>
+      {loading &&
+          Array.from({ length: 4 }).map((_, i) => <ScoreSkeleton key={i}/>)}
         {matches.length > 0 &&
           matches.map((matchData, index) => (
+             
             <div
             key={index} 
-            className="border p-2 mb-4 rounded-xl bg-black bg-opacity-500 text-white border-gray-500" >        
-         
+            className=" border p-2 mb-4 rounded-xl bg-black bg-opacity-500 text-white border-gray-500" >    
+           
             <div className="flex items-center mb-2 justify-between">
                <div className='flex'>
                <img
@@ -115,10 +120,8 @@ const CricketScore: React.FC = () => {
          
           ))
          }
-      </div>
-    </div>
+  </Accordion>  
   );
 };
 
 export default CricketScore;
-
