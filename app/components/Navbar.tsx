@@ -15,7 +15,7 @@ const Navbar = () => {
     <div className=" bg-black w-full h-full flex justify-between sm:justify-center items-center pl-4 pr-4">
       <div className="flex flex-col">
         <div className="flex sm:justify-center ">
-          <p className="text-green-800 font-semibold">Scores</p>
+          <p className="text-blue-500 font-semibold">Scores</p>
           <p className="text-white font-semibold">Source</p>
         </div>
         <div>

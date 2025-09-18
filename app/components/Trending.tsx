@@ -76,7 +76,7 @@ const TrendingFeed: React.FC = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4 rounded-md h-full">
+    <div className="container mx-auto p-3 rounded-md h-full">
       <p className="text-sm sm:text-md text-gray-500 border-b border-gray-500 mb-4 t-0 p-4">
         Trending
       </p>
