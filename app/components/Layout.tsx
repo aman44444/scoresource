@@ -20,7 +20,7 @@ const Layout = () => {
         <Navbar />
       </div>
       <div className="flex h-5/6 w-full justify-around">
-        <div className="bg-black h-full rounded-md w-3/12 hidden sm:block no-scrollbar overflow-y-auto sm:mt-2 sm:mr-3 sm:ml-3">
+        <div className="bg-black h-full rounded-md w-3/12 hidden sm:block no-scrollbar overflow-y-auto sm:mt-3 sm:mr-3 sm:ml-3">
           <div className="flex flex-col items-center">
             <FetchMatches />
             <FootballLiveMatches />
