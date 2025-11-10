@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from "react";
 import { soccerPlayers, cricketPlayers, tennisPlayers } from "../utils/player";
 

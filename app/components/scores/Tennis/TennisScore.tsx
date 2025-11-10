@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import ScoreSkeleton from '../../common/ScoreSkeleton'
 import Accordion from "../../common/Accordion";
