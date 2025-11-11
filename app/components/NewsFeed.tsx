@@ -23,7 +23,9 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ selectedTopic }) =>{
     date.setDate(date.getDate() - 1);
     return date.toISOString().split("T")[0];
   };
-
+  
+  useEffect(() => {
+    
   const fetchNews = async () => {
     const last24HoursDate = getLast24HoursDate();
     const url = `https://news-api14.p.rapidapi.com/v2/trendings?date=${last24HoursDate}&topic=${selectedTopic}&language=en&limit=10`;
@@ -56,8 +58,6 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ selectedTopic }) =>{
     }
   };
 
-  useEffect(() => {
-   
     fetchNews();
   }, [selectedTopic]);
 

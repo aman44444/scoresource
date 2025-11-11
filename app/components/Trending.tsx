@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import { soccerPlayers, cricketPlayers, tennisPlayers } from "../utils/player";
 
@@ -40,39 +40,38 @@ const TrendingFeed: React.FC = () => {
     return now.toISOString().split("T")[0];
   };
 
-  const fetchNews = async () => {
-    setLoading(true);
-
-    const currentDate = getCurrentDate();
-
-    const url = `https://news-api14.p.rapidapi.com/v2/trendings?date=${currentDate}&topic=Sports&language=en&limit=50`;
-    const options = {
-      method: "GET",
-      headers: {
-        "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY || "",
-        "x-rapidapi-host": "news-api14.p.rapidapi.com",
-      },
-    };
-
-    try {
-      const response = await fetch(url, options);
-      const data = await response.json();
-      const fetchedArticles = data.data.map((item: Article) => ({
-        title: item.title,
-        excerpt: item.excerpt,
-      }));
-
-      setTrendingSoccer(countMentions(fetchedArticles, soccerPlayers));
-      setTrendingCricket(countMentions(fetchedArticles, cricketPlayers));
-      setTrendingTennis(countMentions(fetchedArticles, tennisPlayers));
-    } catch (error) {
-      console.error("Error fetching news:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchNews = async () => {
+      setLoading(true);
+
+      const currentDate = getCurrentDate();
+
+      const url = `https://news-api14.p.rapidapi.com/v2/trendings?date=${currentDate}&topic=Sports&language=en&limit=50`;
+      const options = {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY || "",
+          "x-rapidapi-host": "news-api14.p.rapidapi.com",
+        },
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        const fetchedArticles = data.data.map((item: Article) => ({
+          title: item.title,
+          excerpt: item.excerpt,
+        }));
+
+        setTrendingSoccer(countMentions(fetchedArticles, soccerPlayers));
+        setTrendingCricket(countMentions(fetchedArticles, cricketPlayers));
+        setTrendingTennis(countMentions(fetchedArticles, tennisPlayers));
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchNews();
   }, []);
 
