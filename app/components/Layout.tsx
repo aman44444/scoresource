@@ -7,7 +7,6 @@ import FeedClient from "./FeedClient";
 
 
 const Layout = () => {
-
   return (
     <div className="h-screen w-full bg-black">
       <div className="h-16 sm:h-20">
