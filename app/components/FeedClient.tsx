@@ -5,7 +5,7 @@ import NewsFeed from "./NewsFeed";
 const Sports = ["Football", "Cricket" , "Tennis"];
 
 const FeedClient = () => {
-    const [selectedTopic, setSelectedTopic] = useState("Soccer")
+    const [selectedTopic, setSelectedTopic] = useState("Football")
     return (
         <>
           <div className="bg-black h-full border no-scrollbar overflow-y-auto border-gray-600 w-full sm:w-6/12 rounded-xl">
@@ -13,7 +13,13 @@ const FeedClient = () => {
              {Sports.map((topic) => (
                 <button 
                 key={topic}
-                onClick={() => setSelectedTopic(topic)}>
+                onClick={() => setSelectedTopic(topic)}
+                 className={`
+              ${
+                selectedTopic === topic
+                  ? " text-white"
+                  : "hover:text-white"
+              }`}>
                      {topic}
                 </button>
              ))}
