@@ -2,7 +2,7 @@ import Navbar from "./Navbar";
 import FetchMatches from "./scores/Cricket/CricketScore";
 import FootballLiveMatches from "./scores/Football/FootballScore";
 import TennisLiveScores from "./scores/Tennis/TennisScore";
-import Trending from "./Trending";
+import Trending from "./TrendingFeed/Trending";
 import FeedClient from "./FeedClient";
 
 

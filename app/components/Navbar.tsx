@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import TrendingFeed from "./Trending";
+import TrendingFeed from "./TrendingFeed/Trending";
 import TennisScoreCard from "./scores/Tennis/TennisScore";
 import FootballScore from "./scores/Football/FootballScore";
 import CricketScore from "./scores/Cricket/CricketScore";

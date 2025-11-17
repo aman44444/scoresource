@@ -2,10 +2,10 @@
 import { useState } from "react";
 import NewsFeed from "./NewsFeed";
 
-const Sports = ["Football", "Cricket" , "Tennis"];
+const Sports = ["Soccer", "Cricket" , "Tennis"];
 
 const FeedClient = () => {
-    const [selectedTopic, setSelectedTopic] = useState("Football")
+    const [selectedTopic, setSelectedTopic] = useState("Soccer")
     return (
         <>
           <div className="bg-black h-full border no-scrollbar overflow-y-auto border-gray-600 w-full sm:w-6/12 rounded-xl">
