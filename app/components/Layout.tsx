@@ -3,7 +3,7 @@ import FetchMatches from "./scores/Cricket/CricketScore";
 import FootballLiveMatches from "./scores/Football/FootballScore";
 import TennisLiveScores from "./scores/Tennis/TennisScore";
 import Trending from "./TrendingFeed/Trending";
-import FeedClient from "./FeedClient";
+import NewsFeedClient from "../components/NewsFeedClient"
 
 
 const Layout = () => {
@@ -21,7 +21,7 @@ const Layout = () => {
           
           </div>
         </div>
-          <FeedClient/>
+           <NewsFeedClient/>
         <div className="bg-black h-full hidden sm:block w-3/12 rounded-md">
           <Trending />
         </div>

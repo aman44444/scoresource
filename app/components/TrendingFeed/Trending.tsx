@@ -67,7 +67,6 @@ const TrendingFeed: React.FC = () => {
     fetchNews();
   }, []);
 
-  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
 
   return (
     <div className="container mx-auto p-2 pl-3 rounded-md h-full">
@@ -80,6 +79,7 @@ const TrendingFeed: React.FC = () => {
           players={trendingData[topic.name] || []}
           color={topic.color}
           textColor={topic.textColor}
+          loading={loading}
         />
       ))}
     </div>
