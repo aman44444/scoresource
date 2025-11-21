@@ -3,7 +3,7 @@ import FetchMatches from "./scores/Cricket/CricketScore";
 import FootballLiveMatches from "./scores/Football/FootballScore";
 import TennisLiveScores from "./scores/Tennis/TennisScore";
 import Trending from "./TrendingFeed/Trending";
-import NewsFeedClient from "../components/NewsFeedClient"
+import NewsFeedClient from "./NewsFeed/NewsFeedClient"
 
 
 const Layout = () => {
