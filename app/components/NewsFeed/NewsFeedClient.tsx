@@ -24,7 +24,7 @@ const FeedClient = () => {
                    focus-visible:ring-white
                    focus-visible:ring-offset-2
                   focus-visible:ring-offset-black
-`}>
+                  `}>
                      {topic}
                 </button>
              ))}
