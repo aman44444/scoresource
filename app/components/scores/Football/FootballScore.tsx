@@ -20,6 +20,26 @@ interface Match {
   awayTeam: Team;
 }
 
+interface RawEvent {
+  EVENT_ID: string;
+  START_TIME: number;
+  STAGE: string;
+  GAME_TIME: string;
+  ROUND: string;
+  HOME_NAME: string;
+  SHORTNAME_HOME: string;
+  HOME_IMAGES: string[];
+  HOME_SCORE_CURRENT: string;
+  AWAY_NAME: string;
+  SHORTNAME_AWAY: string;
+  AWAY_IMAGES: string[];
+  AWAY_SCORE_CURRENT: string;
+}
+
+interface RawTournament {
+  EVENTS: RawEvent[];
+}
+
 
 
 const FootballScore: React.FC = () => {
@@ -41,15 +61,44 @@ const FootballScore: React.FC = () => {
     setLoading(true);
     setError(null)
 
-      try {
+      
+    try {
       const response = await fetch(url, options);
-      const result = await response.json();
+      const data = await response.json();
 
-      if (result.status) {
-        setMatches(result.data);
-      } else {
-        setError("No matches available");
+      console.log('RAW RESPONSE:', data);
+
+      if (!data || !Array.isArray(data.DATA)) {
+        setError('No live matches available');
+        return;
       }
+
+      const parsedMatches: Match[] = data.DATA.flatMap(
+        (tournament: RawTournament) =>
+          (tournament.EVENTS || []).map((event) => ({
+            eventId: event.EVENT_ID,
+            startTime: event.START_TIME,
+            stage: event.STAGE,
+            gameTime: event.GAME_TIME,
+            round: event.ROUND,
+
+            homeTeam: {
+              name: event.HOME_NAME,
+              shortName: event.SHORTNAME_HOME,
+              logoUrl: event.HOME_IMAGES?.[0] || '/team-placeholder.svg',
+              score: String(event.HOME_SCORE_CURRENT ?? '0'),
+            },
+
+            awayTeam: {
+              name: event.AWAY_NAME,
+              shortName: event.SHORTNAME_AWAY,
+              logoUrl: event.AWAY_IMAGES?.[0] || '/team-placeholder.svg',
+              score: String(event.AWAY_SCORE_CURRENT ?? '0'),
+            },
+          }))
+      );
+
+      setMatches(parsedMatches);
     } catch (err) {
       setError("Error fetching football matches");
     } finally {
@@ -71,12 +120,12 @@ const FootballScore: React.FC = () => {
            <p className='text-xs'>Game Time: {match.gameTime}</p>
           <div className="flex items-center mb-2 justify-between">
             <div>
-            <img src={match.homeTeam.logoUrl} alt={match.homeTeam.name} className="w-4 h-4 mr-2" />
+            <img src={match.homeTeam.logoUrl || "/team-placeholder.svg"} alt={match.homeTeam.name} className="w-4 h-4 mr-2" />
             <span className='text-xs'>{match.homeTeam.shortName}</span>
             </div>
             <span className=" text-xs mx-2">vs</span>
            <div>
-           <img src={match.awayTeam.logoUrl} alt={match.awayTeam.name} className="w-4 h-4 mr-2" />
+           <img src={match.awayTeam.logoUrl || "/team-placeholder.svg"} alt={match.awayTeam.name} className="w-4 h-4 mr-2" />
            <span className='text-xs'>{match.awayTeam.shortName}</span>
            </div>
           </div>
