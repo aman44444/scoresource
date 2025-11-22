@@ -45,12 +45,14 @@ const TennisScoreCard: React.FC = () => {
      try {
       const response = await fetch(url, options);
       const result = await response.json();
+      console.log(result)
 
-      if (result.status) {
-        setMatches(result.data);
-      } else {
-        setError("No matches available");
-      }
+
+      if (Array.isArray(result.events)) {
+        setMatches(result.events);
+       } else {
+          setError("No matches available");
+       }
     } catch (err) {
       setError("Error fetching tennis matches");
     } finally {
@@ -66,8 +68,8 @@ const TennisScoreCard: React.FC = () => {
 
            {loading &&
           Array.from({ length: 4 }).map((_, i) => <ScoreSkeleton key={i} />)}
-      {matches.length > 0 &&
-        matches.map((match, index) => {
+          {matches.length > 0 &&
+           matches.map((match, index) => {
           const homeScoreDisplay = match.homeScore?.display || "0";
           const awayScoreDisplay = match.awayScore?.display || "0";
           const homePoint = match.homeScore?.point || "0";
