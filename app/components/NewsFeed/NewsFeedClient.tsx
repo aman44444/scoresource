@@ -19,7 +19,12 @@ const FeedClient = () => {
                 selectedTopic === topic
                   ? " text-white"
                   : "hover:text-white"
-              }`}>
+              }    focus:outline-none
+                   focus-visible:ring-2
+                   focus-visible:ring-white
+                   focus-visible:ring-offset-2
+                  focus-visible:ring-offset-black
+`}>
                      {topic}
                 </button>
              ))}
