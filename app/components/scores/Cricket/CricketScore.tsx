@@ -1,75 +1,21 @@
-'use client'
-import React, { useState } from 'react'
-import ScoreSkeleton from '../../common/ScoreSkeleton';
-import Accordion from '../../common/Accordion';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface Team {
-  name: string;
-  shortName: string;
-  imageUrl: string; 
-}
-
-interface MatchData {
-  venue: string;
-  match_status: string;
-  series: string;
-  toss: string;
-  match_id :string;
-  match_time: string;
-  match_type: string;
-  team_a: string; 
-  team_b: string; 
-  team_a_short: string;
-  team_b_short: string;
-  team_a_img: string; 
-  team_b_img: string; 
-  team_a_scores: string; // Team A score
-  team_b_scores: string; // Team B score
-  team_a_scores_over?: { over: string; score: string }[]; // Team A innings details
-  team_b_scores_over?: { over: string; score: string }[]; // Team B innings details
-}
+"use client"
+import Accordion from "../../common/Accordion";
+import ScoreSkeleton from "../../common/ScoreSkeleton";
+import { fetchCricketMatches} from "./cricket.api";
+import { useFetch} from "../../hooks/useFetch";
+import { MatchData } from "./types";
 
 
-const CricketScore: React.FC = () => {
-  const [matches, setMatches] = useState<MatchData[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const CricketScore = () => {
+  const {
+    data : matches,
+    loading,
+    error,
+    run,
+  }  = useFetch<MatchData[]>(fetchCricketMatches,[])
 
-  const fetchLiveMatches = async () => {
-    const url = 'https://cricket-live-line1.p.rapidapi.com/liveMatches';
-    const options = {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': process.env.NEXT_PUBLIC_API_KEY || '', 
-        'x-rapidapi-host': 'cricket-live-line1.p.rapidapi.com',
-      },
-    };
-
-    setLoading(true);
-    setError(null);
-     
-    try {
-      const response = await fetch(url, options);
-      const result = await response.json();
-
-      if (result.status) {
-        setMatches(result.data);
-      } else {
-        setError('No matches available');
-      }
-    } catch (err) {
-      setError('Error fetching matches');
-    } finally {
-      setLoading(false);
-    }
-
-  };
-
-  
-  return (
-  
-      <Accordion title='Cricket Score' onFetch={fetchLiveMatches}>
+  return(
+       <Accordion title='Cricket Score' onFetch={run}>
       {error && <p className='text-xs text-gray-300'>{error}</p>}
    
       
@@ -122,7 +68,7 @@ const CricketScore: React.FC = () => {
           ))
          }
   </Accordion>  
-  );
-};
+  )
+}
 
 export default CricketScore;
