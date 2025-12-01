@@ -3,7 +3,7 @@ import FetchMatches from "./scores/Cricket/CricketScore";
 import FootballLiveMatches from "./scores/Football/FootballScore";
 import TennisLiveScores from "./scores/Tennis/TennisScore";
 import Trending from "./TrendingFeed/Trending";
-import NewsFeedClient from "./NewsFeed/NewsFeedClient"
+import NewsFeedClient from "./NewsFeed/NewsFeedClient";
 
 
 const Layout = () => {
@@ -18,7 +18,6 @@ const Layout = () => {
             <FetchMatches />
             <FootballLiveMatches />
             <TennisLiveScores />
-          
           </div>
         </div>
            <NewsFeedClient/>

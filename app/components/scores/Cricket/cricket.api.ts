@@ -1,6 +1,7 @@
 export const fetchCricketMatches = async () => {
     const result = await fetch(
          'https://cricket-live-line1.p.rapidapi.com/liveMatches',
+
     
          {
             headers: {
@@ -11,6 +12,7 @@ export const fetchCricketMatches = async () => {
     );
 
     const json = await result.json();
+    console.log(json);
 
     if (!json.status) {
         throw new Error("No cricket matches");

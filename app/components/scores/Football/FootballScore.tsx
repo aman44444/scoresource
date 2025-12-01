@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Accordion from "../../common/Accordion";
 import ScoreSkeleton from "../../common/ScoreSkeleton";
