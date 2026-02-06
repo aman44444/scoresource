@@ -121,8 +121,8 @@ const Navbar = () => {
                 />
               </svg>
             </button>
-            <nav className="flex w-full mt-6 no-scrollbar overflow-y-auto h-screen">
-              <div className="mt-4 flex flex-col items-center w-1/2 no-scrollbar overflow-y-auto ">
+            <nav className="flex w-full mt-10 no-scrollbar overflow-y-auto h-screen gap-2">
+              <div className="mt-3 ml-2 flex flex-col items-center w-1/2 no-scrollbar overflow-y-auto">
                 <CricketScore />
                 <FootballScore />
                 <TennisScoreCard />
