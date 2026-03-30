@@ -1,19 +1,19 @@
-# ⚽ ScoreSource — Live Sports Scores & News App
+#  ScoreSource — Live Sports Scores & News App
 
 **ScoreSource** is a modern web application that provides **real-time sports scores** and **latest sports news** across multiple sports — all in one place.
 
 
 ---
 
-## 📌 Features
+##  Features
 
-* 🔴 **Live Scores**
+*  **Live Scores**
 
   * Real-time match data for:
 
-    * Cricket 🏏
-    * Football ⚽
-    * Tennis 🎾
+    * Cricket 
+    * Football 
+    * Tennis 
 
 * 📰 **Latest Sports News**
 
@@ -31,7 +31,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 
@@ -49,7 +49,7 @@
 
 ---
 
-## 🧩 Architecture Overview
+##  Architecture Overview
 
 * Component-based architecture using React
 * Separate modules for each sport (Cricket, Football, Tennis)
@@ -58,7 +58,7 @@
 
 ---
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
 1. Clone the repository:
 
@@ -86,11 +86,9 @@ npm run dev
 
 ---
 
-## 🧠 Key Learnings
+##  Key Learnings
 
 * Integrating multiple APIs using RapidAPI
 * Efficient data fetching in React applications
 * Building scalable and reusable component architecture
 * Creating responsive UI with Tailwind CSS
-
-
