@@ -1,24 +1,31 @@
 #  ScoreSource — Live Sports Scores & News App
 
-**ScoreSource** is a modern web application that provides **real-time sports scores** and **latest sports news** across multiple sports — all in one place.
-
+**ScoreSource** is a modern web application that provides **real-time sports scores**, **latest sports news**, and **derived trending topics/players** — all in one place.
 
 ---
 
 ##  Features
 
-*  **Live Scores**
+* 🔴 **Live Scores**
 
   * Real-time match data for:
 
-    * Cricket 
-    * Football 
-    * Tennis 
+    * Cricket 🏏
+    * Football ⚽
+    * Tennis 🎾
 
 * 📰 **Latest Sports News**
 
-  * Displays recent sports news articles
-  * Keeps users updated with ongoing matches and key events
+  * Fetches and displays recent sports news articles
+  * Keeps users updated with ongoing matches and events
+
+* 🔥 **Trending Players**
+
+  * Identifies trending players based on:
+
+    * Frequency of mentions in news articles
+    * Recent match coverage
+  * Provides a **data-driven alternative** to social media trends
 
 * 📊 **Match Details View**
 
@@ -27,7 +34,6 @@
 * 📱 **Responsive UI**
 
   * Fully optimized for mobile and desktop devices
-
 
 ---
 
@@ -54,6 +60,7 @@
 * Component-based architecture using React
 * Separate modules for each sport (Cricket, Football, Tennis)
 * Centralized API service layer for RapidAPI requests
+* Data processing layer for extracting trending topics from news
 * Reusable UI components (cards, match views)
 
 ---
@@ -86,9 +93,12 @@ npm run dev
 
 ---
 
-##  Key Learnings
+## Key Learnings
 
-* Integrating multiple APIs using RapidAPI
-* Efficient data fetching in React applications
-* Building scalable and reusable component architecture
-* Creating responsive UI with Tailwind CSS
+* Handling multiple APIs
+* Designing a **scalable data-fetching layer** in React
+* Building a **derived data system** (trending from news instead of direct APIs)
+* Managing async state and UI updates for live data
+* Creating reusable and maintainable component architecture
+* Optimizing performance for frequent data updates
+
