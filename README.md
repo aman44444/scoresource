@@ -4,6 +4,12 @@
 
 ---
 
+## 📸 Screenshots
+
+### Home Page
+![Home Page](./app/public/Screenshot%20(80).png)
+
+
 ##  Features
 
 * 🔴 **Live Scores**
