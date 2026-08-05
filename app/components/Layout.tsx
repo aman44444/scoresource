@@ -4,11 +4,13 @@ import FootballLiveMatches from "./scores/Football/FootballScore";
 import TennisLiveScores from "./scores/Tennis/TennisScore";
 import Trending from "./TrendingFeed/Trending";
 import NewsFeedClient from "./NewsFeed/NewsFeedClient";
+import ApiNoticeModal from "./ApiNoticeModal";
 
 
 const Layout = () => {
   return (
     <div className="h-screen w-full bg-black">
+      <ApiNoticeModal />
       <div className="h-16 sm:h-20">
         <Navbar />
       </div>
