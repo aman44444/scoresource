@@ -22,7 +22,7 @@ export default function ApiNoticeModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="w-[92%] max-w-lg rounded-2xl bg-zinc-900 border border-zinc-700 p-6 shadow-2xl">
+      <div className="w-[92%] max-w-lg rounded-2xl bg-black/45 border border-zinc-700 p-6 shadow-2xl">
         <h2 className="text-2xl font-bold text-white">
           ⚠️ Data Availability Notice
         </h2>
