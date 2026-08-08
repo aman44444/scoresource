@@ -1,105 +1,104 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import NewsSkeleton from "./NewsPostSkeleton";
-
-interface Article {
-  title: string;
-  url: string;
-  excerpt: string;
-  thumbnail: string;
-  date: string;
-}
+import { useCricketNews } from "@/hooks/useCricketNews";
 
 interface NewsFeedProps {
   selectedTopic: string;
 }
 
 const NewsFeed: React.FC<NewsFeedProps> = ({ selectedTopic }) => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
+  // each hook only fetches when its topic is the active one —
+  // all three still get called every render (Rules of Hooks),
+  // but only the active one does network work
+  const cricket = useCricketNews(selectedTopic === "Cricket");
 
-  const getLast24HoursDate = (): string => {
-    const date = new Date();
-    date.setDate(date.getDate() - 1);
-    return date.toISOString().split("T")[0];
-  };
+  // TODO: once built —
+  // const tennis = useTennisNews(selectedTopic === "Tennis");
+  // const soccer = useSoccerNews(selectedTopic === "Soccer");
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      const last24HoursDate = getLast24HoursDate();
-      const url = `https://news-api14.p.rapidapi.com/v2/trendings?date=${last24HoursDate}&topic=${selectedTopic}&language=en&limit=10`;
-      const options = {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY || "",
-          "x-rapidapi-host": "news-api14.p.rapidapi.com",
-        },
-      };
+  const current =
+    selectedTopic === "Cricket"
+      ? cricket
+      : { data: [], isLoading: false, isError: false, error: null };
+  // ^ placeholder for Tennis/Soccer until their hooks exist
 
-      try {
-        setLoading(true);
-        const response = await fetch(url, options);
-        const data = await response.json();
+  const { data: articles = [], isLoading, isError, error } = current;
 
-        const fetchedArticles = data.data.map((item: Article) => ({
-          title: item.title,
-          url: item.url,
-          excerpt: item.excerpt,
-          thumbnail: item.thumbnail,
-          date: item.date,
-        }));
+  if (selectedTopic !== "Cricket") {
+    return (
+      <div className="container mx-auto p-4 text-center text-gray-500">
+        {selectedTopic} news coming soon.
+      </div>
+    );
+  }
 
-        setArticles(fetchedArticles);
-      } catch (error) {
-        console.error("Error fetching news:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (isLoading) {
+    return (
+      <div className="container mx-auto p-4">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <NewsSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
 
-    fetchNews();
-  }, [selectedTopic]);
+  if (isError) {
+    const status = error instanceof Error && "status" in error
+    ? (error as Error & { status: number }).status
+    : undefined;
+    const message =
+      status === 402
+        ? "News quota exceeded for today. Please check back later."
+        : status === 429
+        ? "Too many requests right now. Please try again shortly."
+        : "Couldn't load news. Please try again later.";
+
+    return (
+      <div className="container mx-auto p-4 text-center text-gray-500">
+        {message}
+      </div>
+    );
+  }
+
+  if (articles.length === 0) {
+    return <p className="text-center text-gray-500">No articles found.</p>;
+  }
 
   return (
     <div className="container mx-auto p-4">
-      {loading ? (
-        Array.from({ length: 6 }).map((_, i) => <NewsSkeleton key={i} />)
-      ) : articles.length > 0 ? (
-        articles.map((article, index) => (
-          <div
-            key={index}
-            className="border border-gray-500 p-4 mb-4 rounded-xl flex"
-          >
-            <div className="w-1/6 h-auto">
-              {article.thumbnail && (
-                <img
-                  src={article.thumbnail}
-                  alt={article.title}
-                  className="w-full h-auto mt-2 rounded-md"
-                />
-              )}
-            </div>
-            <div className="w-5/6 h-auto">
-              <h3 className=" text-sm sm:text-xl font-bold mb-2 ml-2">
-                {article.title}
-              </h3>
-              <p className="text-xs sm:text-sm mb-2 ml-2">{article.excerpt}</p>
-              <p className="text-xs text-gray-500 ml-2">
-                {new Date(article.date).toLocaleDateString()}
-              </p>
-              <a
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 ml-2"
-              >
-                Read more
-              </a>
-            </div>
+      {articles.map((article) => (
+        <div
+          key={article.id}
+          className="border border-gray-500 p-4 mb-4 rounded-xl flex"
+        >
+          <div className="w-1/6 h-auto">
+            {article.thumbnail && (
+              <img
+                src={article.thumbnail}
+                alt={article.title}
+                className="w-full h-auto mt-2 rounded-md"
+              />
+            )}
           </div>
-        ))
-      ) : (
-        <p className="text-center text-gray-500">No articles found.</p>
-      )}
+          <div className="w-5/6 h-auto">
+            <h3 className="text-sm sm:text-xl font-bold mb-2 ml-2">
+              {article.title}
+            </h3>
+            <p className="text-xs sm:text-sm mb-2 ml-2">{article.excerpt}</p>
+            <p className="text-xs text-gray-500 ml-2">
+              {new Date(article.date).toLocaleDateString()}
+            </p>
+            <a
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 ml-2"
+            >
+              Read more
+            </a>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
