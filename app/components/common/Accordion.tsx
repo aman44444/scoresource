@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
-import { ImSpinner } from "react-icons/im";
+import { ImSpinner2 } from "react-icons/im";
+
+
+
 
 interface AccordionProps {
   title: string;
@@ -39,7 +42,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, onFetch, children }) => {
         <span className="text-sm">{title}</span>
 
          {fetching ? (
-          <ImSpinner
+          <ImSpinner2
             size={18}
             className="animate-spin text-gray-400"
           />
