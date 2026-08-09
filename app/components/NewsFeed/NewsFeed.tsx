@@ -81,7 +81,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ selectedTopic }) => {
             )}
           </div>
           <div className="w-5/6 h-auto">
-            <h3 className="text-sm sm:text-xl font-bold mb-2 ml-2">
+            <h3 className="text-sm sm:text-xl font-bold ml-2 mb-2 mt-1">
               {article.title}
             </h3>
             <p className="text-xs sm:text-sm mb-2 ml-2">{article.excerpt}</p>
