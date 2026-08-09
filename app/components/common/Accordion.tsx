@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
+import { ImSpinner } from "react-icons/im";
 
 interface AccordionProps {
   title: string;
@@ -9,15 +10,22 @@ interface AccordionProps {
 
 const Accordion: React.FC<AccordionProps> = ({ title, onFetch, children }) => {
   const [open, setOpen] = useState(false);
+  const [fetching, setFetching] = useState(false);
 
-
-     const handleToggle = async () => {
+  const handleToggle = async () => {
     const willOpen = !open;
 
     setOpen(willOpen); 
 
     if (willOpen && onFetch) {
-      await onFetch(); 
+      setFetching(true);
+
+      try{
+        await onFetch();
+      }
+      finally {
+        setFetching(false);
+      }
     }
   };
 
@@ -30,10 +38,19 @@ const Accordion: React.FC<AccordionProps> = ({ title, onFetch, children }) => {
       >
         <span className="text-sm">{title}</span>
 
-        <FiChevronDown
-          size={18}
-          className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-        />
+         {fetching ? (
+          <ImSpinner
+            size={18}
+            className="animate-spin text-gray-400"
+          />
+        ) : (
+          <FiChevronDown
+            size={18}
+            className={`transition-transform duration-300 ${
+              open ? "rotate-180" : ""
+            }`}
+          />
+        )}
       </button>
       {open && <div className="p-3">{children}</div>}
     </div>
