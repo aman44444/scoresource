@@ -22,7 +22,9 @@ const TrendingSection: React.FC<TrendingSectionProps> = ({ topic, loading,player
   {loading ? (
     <TrendingSkeleton />
     ) : players.length === 0 ? (
-     <p className="text-xs text-gray-500">No trending players</p>
+     <div className="pl-3">
+      <p className="text-xs text-gray-500">No trending players</p>
+     </div>
     ) : (
        <div className="ml-4 mr-4">
       <ul>
