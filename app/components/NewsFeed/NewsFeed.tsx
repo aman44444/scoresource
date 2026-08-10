@@ -1,12 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import NewsSkeleton from "./NewsPostSkeleton";
 import { useCricketNews } from "@/hooks/useCricketNews";
 
 interface NewsFeedProps {
   selectedTopic: string;
+  onLoadingChange: (loading: boolean) => void;
 }
 
-const NewsFeed: React.FC<NewsFeedProps> = ({ selectedTopic }) => {
+const NewsFeed: React.FC<NewsFeedProps> = ({ selectedTopic, onLoadingChange }) => {
   // each hook only fetches when its topic is the active one —
   // all three still get called every render (Rules of Hooks),
   // but only the active one does network work
@@ -23,6 +24,10 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ selectedTopic }) => {
   // ^ placeholder for Tennis/Soccer until their hooks exist
 
   const { data: articles = [], isLoading, isError, error } = current;
+
+  useEffect(() => {
+    onLoadingChange(isLoading);
+  }, [isLoading, onLoadingChange]);
 
   if (selectedTopic !== "Cricket") {
     return (
