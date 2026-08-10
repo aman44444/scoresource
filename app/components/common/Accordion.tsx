@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { ImSpinner2 } from "react-icons/im";
 
-
-
-
 interface AccordionProps {
   title: string;
   onFetch?: () => void;      
