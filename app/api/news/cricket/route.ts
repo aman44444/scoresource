@@ -19,7 +19,7 @@ export async function GET() {
         "x-rapidapi-key": apiKey,
         "x-rapidapi-host": CRICBUZZ_HOST,
       },
-      next: { revalidate: 600 },
+      next: { revalidate: 60 * 60 * 4 },
     });
 
     if (!res.ok) {
