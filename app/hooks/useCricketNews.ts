@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { adaptCricbuzzNews, type Article } from "../utils/cricket.adapter";
+import { adaptCricbuzzNews } from "../utils/cricket.adapter";
+import { Article } from "@/types/news";
 class NewsFetchError extends Error {
   status: number;
 
