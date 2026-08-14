@@ -1,4 +1,4 @@
-// app/lib/news/cricket.adapter.ts
+import type { Article } from "@/types/news";
 
 interface CricbuzzCoverImage {
   id: string;
@@ -35,16 +35,6 @@ interface CricbuzzNewsResponse {
   lastUpdatedTime?: string;
   seoTitle?: string;
   webURL?: string;
-}
-
-export interface Article {
-  id: string;
-  title: string;
-  url: string;
-  excerpt: string;
-  thumbnail: string;
-  date: string;
-  source: string;
 }
 
 function buildImageUrl(imageId?: number): string {
