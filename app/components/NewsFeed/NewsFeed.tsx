@@ -11,17 +11,35 @@ interface NewsFeedProps {
 }
 
 const formatNewsDate = (date: string) => {
-  const [datePart, timePart] = date.split(" ");
+  if (!date) return "";
 
-  if (!datePart) return "";
+  const match = date.match(
+    /^(\d{2})-(\d{2})-(\d{4})(?:\s+(\d{2}):(\d{2}):(\d{2}))?$/,
+  );
 
-  const [day, month, year] = datePart.split("-").map(Number);
+  if (match) {
+    const [, day, month, year, hours = "0", minutes = "0", seconds = "0"] =
+      match;
 
-  const [hours = 0, minutes = 0, seconds = 0] = timePart
-    ? timePart.split(":").map(Number)
-    : [];
+    const parsedDate = new Date(
+      Number(year),
+      Number(month) - 1,
+      Number(day),
+      Number(hours),
+      Number(minutes),
+      Number(seconds),
+    );
 
-  const parsedDate = new Date(year, month - 1, day, hours, minutes, seconds);
+    if (!Number.isNaN(parsedDate.getTime())) {
+      return parsedDate.toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+    }
+  }
+
+  const parsedDate = new Date(date);
 
   if (Number.isNaN(parsedDate.getTime())) {
     return "";
@@ -50,8 +68,6 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
 
   const tennis = useTennisNews(activeTopic === "tennis");
 
-  // Your UI calls it "Soccer",
-  // but the hook fetches football news.
   const football = useFootballNews(activeTopic === "soccer");
 
   console.log("Football query:", {
@@ -153,7 +169,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
               />
             )}
           </div>
-
+        
           <div className="w-5/6 h-auto">
             <h3 className="text-sm sm:text-xl font-bold ml-2 mb-2 mt-1">
               {article.title}
