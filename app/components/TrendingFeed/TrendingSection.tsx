@@ -15,7 +15,7 @@ interface TrendingSectionProps {
 
 const TrendingSection: React.FC<TrendingSectionProps> = ({ topic, loading,players, color, textColor }) => (
   <div className="mb-4 border border-gray-500 rounded-md p-3">
-    <div className={`p-2 rounded-md bg-${color}`}>
+    <div className={`p-2 rounded-md ${color}`}>
       <p className={`text-xs sm:text-sm ${textColor}`}>Trending in {topic}</p>
     </div>
    
