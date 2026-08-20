@@ -1,37 +1,46 @@
-export interface RawEvent {
-  EVENT_ID: string;
-  START_TIME: number;
-  STAGE: string;
-  GAME_TIME: string;
-  ROUND: string;
-  HOME_NAME: string;
-  SHORTNAME_HOME: string;
-  HOME_IMAGES: string[];
-  HOME_SCORE_CURRENT: string;
-  AWAY_NAME: string;
-  SHORTNAME_AWAY: string;
-  AWAY_IMAGES: string[];
-  AWAY_SCORE_CURRENT: string;
+export interface RawTeam {
+  team_id: string;
+  event_participant_id: string;
+  name: string;
+  short_name: string;
+  small_image_path: string;
+  red_cards: number;
+}
+
+export interface RawMatchStatus {
+  stage: string;
+  is_cancelled: boolean;
+  is_postponed: boolean;
+  is_started: boolean;
+  is_in_progress: boolean;
+  is_finished: boolean;
+  is_finished_after_extra_time: boolean;
+  is_finished_after_penalties: boolean;
+  live_time: string | null;
+  live_minute: number | null;
+  winner: string | null;
+  final_winner: string | null;
+}
+
+export interface RawScores {
+  home: number;
+  away: number;
+}
+
+export interface RawMatch {
+  match_id: string;
+  match_status: RawMatchStatus;
+  timestamp: number;
+  home_team: RawTeam;
+  away_team: RawTeam;
+  scores: RawScores;
 }
 
 export interface RawTournament {
-  EVENTS: RawEvent[];
-}
-
-
-export interface Team {
+  tournament_id: string;
+  tournament_url: string;
   name: string;
-  shortName: string;
-  logoUrl: string;
-  score: string;
-}
-
-export interface Match {
-  eventId: string;
-  startTime: number;
-  stage: string;
-  gameTime: string;
-  round: string;
-  homeTeam: Team;
-  awayTeam: Team;
+  country_name: string;
+  image_path: string;
+  matches: RawMatch[];
 }
