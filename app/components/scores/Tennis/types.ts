@@ -43,3 +43,30 @@ export interface RawTennisTournament {
   image_path: string;
   matches: RawTennisMatch[];
 }
+
+/*
+ * Types used by our UI
+ */
+
+export interface TennisPlayer {
+  name: string;
+  shortName: string;
+  logoUrl: string;
+}
+
+export interface Match {
+  matchId: string;
+  timestamp: number;
+
+  tournament: string;
+  country: string | null;
+
+  stage: string;
+  liveTime: string | null;
+
+  homeTeam: TennisPlayer;
+  awayTeam: TennisPlayer;
+
+  homeScore: number;
+  awayScore: number;
+}
