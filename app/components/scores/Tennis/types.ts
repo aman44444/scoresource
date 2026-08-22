@@ -1,21 +1,45 @@
-export interface Player {
+export interface RawTennisTeam {
+  team_id: string;
+  event_participant_id: string;
   name: string;
-  shortName: string;
-  ranking: number;
-  country: { name: string; alpha2?: string };
-  currentScore?: number;
-  point?: string;
+  short_name: string;
+  small_image_path: string;
 }
 
-export interface Match {
-  tournament?: { name?: string; category?: { name?: string } };
-  roundInfo?: { round?: number; name?: string };
-  homeTeam?: Player;
-  awayTeam?: Player;
-  homeScore?: { display: string; point: string };
-  awayScore?: { display: string; point: string };
-  status?: { description?: string };
-  id: number;
-  eventId: number;
+export interface RawTennisMatchStatus {
+  stage: string;
+  is_cancelled: boolean;
+  is_postponed: boolean;
+  is_started: boolean;
+  is_in_progress: boolean;
+  is_finished: boolean;
+  is_finished_after_extra_time: boolean;
+  is_finished_after_penalties: boolean;
+  live_time: string | null;
+  live_minute: number | null;
+  winner: string | null;
+  final_winner: string | null;
 }
 
+export interface RawTennisScores {
+  home: number;
+  away: number;
+}
+
+export interface RawTennisMatch {
+  match_id: string;
+  match_status: RawTennisMatchStatus;
+  timestamp: number;
+  home_team: RawTennisTeam;
+  away_team: RawTennisTeam;
+  scores: RawTennisScores;
+}
+
+export interface RawTennisTournament {
+  tournament_id: string;
+  tournament_url: string;
+  name: string;
+  country_name: string | null;
+  image_path: string;
+  matches: RawTennisMatch[];
+}
