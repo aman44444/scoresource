@@ -2,22 +2,31 @@ import { Match } from "./types";
 import { TennisPlayer } from "./TennisPlayer";
 import { TennisScoreBoard } from "./TennisScoreBoard";
 
-export const TennisMatchCard: React.FC<{ match: Match }> = ({ match }) => {
+interface TennisMatchCardProps {
+  match: Match;
+}
+
+export const TennisMatchCard = ({
+  match,
+}: TennisMatchCardProps) => {
   return (
-    <div className="w-full border p-2 mb-4 rounded-xl border-gray-500">
-      <h2 className="text-sm lg:text-xl font-bold">
-        {match.tournament?.name || "Unknown Tournament"}
-      </h2>
+    <div className="w-full border p-3 mb-4 rounded-xl border-gray-500">
+      <div className="mb-3">
+        <h2 className="text-sm font-bold">
+          {match.tournament}
+        </h2>
 
-      <p className="text-xs mb-2">
-        {match.tournament?.category?.name || "Unknown Category"} –{" "}
-        {match.roundInfo?.name || "Unknown Round"}
-      </p>
+        <p className="text-xs text-gray-400">
+          {match.country || "Unknown"} · {match.stage}
+        </p>
+      </div>
 
-      <div className="flex justify-between items-center">
-         {match.homeTeam && <TennisPlayer player={match.homeTeam} />}
+      <div className="flex items-center justify-between">
+        <TennisPlayer player={match.homeTeam} />
+
         <TennisScoreBoard match={match} />
-         {match.awayTeam && <TennisPlayer player={match.awayTeam} />}
+
+        <TennisPlayer player={match.awayTeam} />
       </div>
     </div>
   );
