@@ -3,7 +3,7 @@ import React from "react";
 import Accordion from "../../common/Accordion";
 import ScoreSkeleton from "../../common/ScoreSkeleton";
 import { FootballMatchCard } from "./FootballMatchCard";
-import {  Match} from "./types";
+import { Match } from "@/components/types";
 import { useFetch } from "../../hooks/useFetch";
 import { fetchFootballMatches } from "./football.api";
 
