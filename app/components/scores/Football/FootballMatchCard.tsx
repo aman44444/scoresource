@@ -1,4 +1,4 @@
-import { Match } from "./types";
+import { Match } from "@/components/types";
 import { TeamScore } from "./TeamScore";
 
 
