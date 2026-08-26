@@ -1,25 +1,106 @@
-export interface Team {
-  name: string;
-  shortName: string;
-  imageUrl: string; 
+export interface CricketTeam {
+  teamId: number;
+  teamName: string;
+  teamSName: string;
+  imageId: number;
+}
+
+export interface CricketInnings {
+  inningsId: number;
+  runs: number;
+  wickets: number;
+  overs: number;
+  isDeclared?: boolean;
+  isFollowOn?: boolean;
+}
+
+export interface CricketTeamScore {
+  [key: string]: CricketInnings | undefined;
+}
+
+export interface CricketMatchScore {
+  team1Score?: CricketTeamScore;
+  team2Score?: CricketTeamScore;
+}
+
+export interface CricketVenue {
+  id: number;
+  ground: string;
+  city: string;
+  timezone: string;
+  latitude: string;
+  longitude: string;
+}
+
+export interface CricketMatchInfo {
+  matchId: number;
+  seriesId: number;
+  seriesName: string;
+  matchDesc: string;
+  matchFormat: string;
+  startDate: string;
+  endDate: string;
+  state: string;
+  status: string;
+
+  team1: CricketTeam;
+  team2: CricketTeam;
+
+  venueInfo: CricketVenue;
+
+  currBatTeamId: number;
+
+  seriesStartDt: string;
+  seriesEndDt: string;
+
+  isTimeAnnounced: boolean;
+  stateTitle: string;
+  isFantasyEnabled?: boolean;
+}
+
+export interface CricketRawMatch {
+  matchInfo: CricketMatchInfo;
+  matchScore?: CricketMatchScore;
+}
+
+export interface CricketRawSeries {
+  seriesId: number;
+  seriesName: string;
+  matches: CricketRawMatch[];
+}
+
+export interface CricketRawTypeMatch {
+  matchType: string;
+  seriesMatches: {
+    seriesAdWrapper?: CricketRawSeries;
+  }[];
+}
+
+export interface CricketRawResponse {
+  typeMatches: CricketRawTypeMatch[];
 }
 
 export interface MatchData {
+  id: number;
+
+  seriesName: string;
+  matchDesc: string;
+  matchFormat: string;
+
+  state: string;
+  status: string;
+
+  teamA: string;
+  teamAShort: string;
+  teamAImageId: number;
+
+  teamB: string;
+  teamBShort: string;
+  teamBImageId: number;
+
+  teamAScores: CricketInnings[];
+  teamBScores: CricketInnings[];
+
   venue: string;
-  match_status: string;
-  series: string;
-  toss: string;
-  match_id :string;
-  match_time: string;
-  match_type: string;
-  team_a: string; 
-  team_b: string; 
-  team_a_short: string;
-  team_b_short: string;
-  team_a_img: string; 
-  team_b_img: string; 
-  team_a_scores: string; // Team A score
-  team_b_scores: string; // Team B score
-  team_a_scores_over?: { over: string; score: string }[]; // Team A innings details
-  team_b_scores_over?: { over: string; score: string }[]; // Team B innings details
+  city: string;
 }
