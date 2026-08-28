@@ -1,4 +1,4 @@
-import { Team } from "./types";
+import { Team } from "@/components/types";
 
 export const TeamScore: React.FC<{ team: Team }> = ({ team }) => (
   <div className="flex items-center">
