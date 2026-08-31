@@ -1,21 +1,20 @@
 import { Match } from "./types";
 
-export const TennisScoreBoard: React.FC<{ match: Match }> = ({ match }) => {
-  const homeScore = match.homeScore?.display || "0";
-  const awayScore = match.awayScore?.display || "0";
-  const homePoint = match.homeScore?.point || "0";
-  const awayPoint = match.awayScore?.point || "0";
+interface TennisScoreBoardProps {
+  match: Match;
+}
 
+export const TennisScoreBoard = ({
+  match,
+}: TennisScoreBoardProps) => {
   return (
-    <div className="flex flex-col text-center">
-      <p className="font-bold text-xs">
-        {homeScore} - {awayScore}
+    <div className="flex flex-col items-center text-center">
+      <p className="font-bold text-sm">
+        {match.homeScore} - {match.awayScore}
       </p>
-      <p className="text-xs">
-        Points: {homePoint} - {awayPoint}
-      </p>
-      <p className="text-xs">
-        Status: {match.status?.description || "Unknown"}
+
+      <p className="text-xs text-gray-400">
+        {match.liveTime || match.stage}
       </p>
     </div>
   );
