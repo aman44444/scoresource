@@ -1,22 +1,20 @@
-export const fetchCricketMatches = async () => {
-    const result = await fetch(
-         'https://cricket-live-line1.p.rapidapi.com/liveMatches',
+import { adaptCricketMatches } from "./cricket.adapter";
+import { MatchData, CricketRawResponse } from "./types";
 
-    
-         {
-            headers: {
-                 'x-rapidapi-key': process.env.NEXT_PUBLIC_API_KEY || '',
-                 'x-rapidapi-host': 'cricket-live-line1.p.rapidapi.com',
-            },
-         }
+export async function fetchCricketMatches(): Promise<MatchData[]> {
+  const res = await fetch("/api/cricket");
+
+  if (!res.ok) {
+    const body = await res
+      .json()
+      .catch(() => ({} as { error?: string }));
+
+    throw new Error(
+      body?.error ?? `Request failed: ${res.status}`,
     );
+  }
 
-    const json = await result.json();
-    console.log(json);
+  const raw: CricketRawResponse = await res.json();
 
-    if (!json.status) {
-        throw new Error("No cricket matches");
-    }
-
-    return json.data;
+  return adaptCricketMatches(raw);
 }
