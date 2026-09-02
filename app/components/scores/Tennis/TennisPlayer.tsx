@@ -1,29 +1,27 @@
-import { Player } from "./types";
+import { TennisPlayer as TennisPlayerType } from "./types";
 
-export const TennisPlayer: React.FC<{ player: Player }> = ({ player }) => {
-   if (!player) {
-    return (
-      <div>
-        <p className="text-xs text-gray-400">Unknown Player</p>
-      </div>
-    );
-  }
-  
-    const flagUrl = player?.country?.alpha2
-    ? `https://flagcdn.com/${player.country.alpha2.toLowerCase()}.svg`
-    : "https://via.placeholder.com/32";
+interface TennisPlayerProps {
+  player: TennisPlayerType;
+}
 
+export const TennisPlayer = ({ player }: TennisPlayerProps) => {
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <img
-        src={flagUrl}
-        alt={`${player?.country?.name || "Unknown"} flag`}
-        width={20}
-        height={20}
-        className="mr-2"
+        src={player.logoUrl || "/team-placeholder.svg"}
+        alt=""
+        width={32}
+        height={32}
+        className="w-6 h-6 mb-1"
       />
-      <p className="text-xs">{player?.name || "Unknown Player"}</p>
-      <p className="text-xs">Rank: {player?.ranking || "N/A"}</p>
+
+      <p className="text-xs text-center">
+        {player.name}
+      </p>
+
+      <p className="text-xs text-gray-400">
+        {player.shortName}
+      </p>
     </div>
   );
 };
